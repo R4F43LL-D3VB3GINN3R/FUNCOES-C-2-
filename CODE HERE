@@ -1,0 +1,243 @@
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+#include <string> 
+#include <limits>
+
+int gf_range_random (int begin, int end, int attempts) {
+		
+	int randomnum;
+	int range;
+	
+	range = end - begin;
+	randomnum = rand() % (range) + begin;
+	
+	return randomnum;
+
+}
+
+int gf_errortreatment (int input) {
+	
+    while (input < 1) {
+		
+        std::cout << "-------------------------------" << std::endl;
+        std::cout << "INSIRA UM VALOR ACIMA DE ZERO: ";
+        std::cin >> input;
+        std::cout << "-------------------------------" << std::endl;
+        
+	}
+	
+	return input;
+}
+
+int gf_errortreatment2 (int input1, int input2) {
+	
+	while (input1 >= input2) {
+		
+		std::cout << "--------------------------------------------" << std::endl;
+		std::cout << "O PRECO MINIMO DEVE SER MENOR DO QUE O FINAL" << std::endl;
+		std::cout << "--------------------------------------------" << std::endl;
+		
+		std::cout << "---------------------------------" << std::endl;
+		std::cout << "INSIRA O PRECO MINIMO DO PRODUTO: ";
+		std::cin >> input1;
+		std::cout << "---------------------------------" << std::endl;
+		
+		input1 = gf_errortreatment(input1);
+		
+		std::cout << "---------------------------------" << std::endl;
+		std::cout << "INSIRA O PRECO MAXIMO DO PRODUTO: ";
+		std::cin >> input2;
+		std::cout << "---------------------------------" << std::endl;
+		
+		input2 = gf_errortreatment(input2);
+		
+	} 
+	
+	return input1, input2;
+}
+	
+int main(int argc, char** argv) {
+	
+	int lv_minprice, lv_maxprice, lv_attempts, lv_moveplayer, lv_count;
+	
+	std::string lv_answer;	
+	lv_answer = "S";
+	
+	while (lv_answer == "S") {
+	
+		std::cout << "-------------------------------------------------------" << std::endl;
+		std::cout << "ACERTE O PRECO DO PRODUTO E LEVE-O INTEIRAMENTE GRATIS!" << std::endl;
+		std::cout << "-------------------------------------------------------" << std::endl;
+		
+		std::cout << "----------" << std::endl;
+		std::cout << "CARREGANDO" << std::endl;
+		std::cout << "----------" << std::endl;
+			
+		std::cout << "---------------------------------" << std::endl;
+		std::cout << "INSIRA O PRECO MINIMO DO PRODUTO: ";
+		std::cin >> lv_minprice;
+		std::cout << "---------------------------------" << std::endl;
+		
+		lv_minprice = gf_errortreatment(lv_minprice);
+		
+		std::cout << "---------------------------------" << std::endl;
+		std::cout << "INSIRA O PRECO MAXIMO DO PRODUTO: ";
+		std::cin >> lv_maxprice;
+		std::cout << "---------------------------------" << std::endl;
+		
+		int lf_errortreatment2 = gf_errortreatment2(lv_minprice, lv_maxprice);
+		
+		std::cout << "---------------------------------" << std::endl;
+		std::cout << "INSIRA O NUMERO DE TENTATIVAS: ";
+		std::cin >> lv_attempts;
+		std::cout << "---------------------------------" << std::endl;
+		
+		lv_attempts = gf_errortreatment(lv_attempts);
+		
+		lv_count = lv_attempts;
+		
+		std::cout << "----------" << std::endl;
+		std::cout << "CARREGANDO" << std::endl;
+		std::cout << "----------" << std::endl;
+		
+		int lf_range_random = gf_range_random(lv_minprice, lv_maxprice, lv_attempts);
+	
+		if (lv_attempts == 1) {
+		
+			std::cout << "--------------------" << std::endl;
+			std::cout << "VOCE TEM " << lv_attempts << " TENTATIVA" << std::endl;
+			std::cout << "--------------------" << std::endl;
+		
+	    } else {
+	    	
+	    	std::cout << "---------------------" << std::endl;
+	    	std::cout << "O VALOR DO PRECO ESTA ENTRE " << lv_minprice << " E " << lv_maxprice << "... "<< std::endl;
+	    	std::cout << "VOCE TEM " << lv_attempts << " TENTATIVAS" << std::endl;
+	    	std::cout << "---------------------" << std::endl;
+		}
+		
+		std::cout << "----------" << std::endl;
+		std::cout << "CARREGANDO" << std::endl;
+		std::cout << "----------" << std::endl;
+		
+		std::cout << "-----------------------" << std::endl;
+		std::cout << "TENTE ACERTAR O VALOR EXATO DO PRECO: ";
+		std::cin >> lv_moveplayer;
+		std::cout << "-----------------------" << std::endl;
+			
+			while (lv_answer == "S" || lv_answer == "s") {
+				
+				if (lv_moveplayer != lf_range_random) {
+					
+					if (lv_moveplayer > lf_range_random) {
+						
+						std::cout << "-------------------" << std::endl;
+						std::cout << lv_moveplayer << " E MAIOR QUE O PRECO"<< std::endl;
+						std::cout << "-------------------" << std::endl;
+					}
+					
+					else if (lv_moveplayer < lf_range_random) {
+						
+						std::cout << "--------------------" << std::endl;
+						std::cout << lv_moveplayer << " E MENOR QUE O PRECO"<< std::endl;
+						std::cout << "--------------------" << std::endl;
+					}
+					
+				}		
+				
+				lv_count = lv_count - 1;
+				
+			    std::cout << "-----------" << std::endl;	
+			    std::cout << "ERROU!!! " << std::endl;
+			    std::cout << "VOCE AINDA TEM " << lv_count << " TENTATIVAS"<< std::endl;
+			    std::cout << "-------------------------------" << std::endl;
+			    
+			    std::cout << "-----------------------" << std::endl;
+				std::cout << "TENTE NOVAMENTE: ";
+				std::cin >> lv_moveplayer;
+				std::cout << "-----------------------" << std::endl;
+				
+				if (lv_count == 1 || lv_count == 0) {
+					
+					std::cout << "------------------------" << std::endl;
+					std::cout << "SUAS TENTATIVAS ACABARAM" << std::endl;
+					std::cout << "------------------------" << std::endl;
+					std::cout << "QUER CONTINUAR JOGANDO?" << std::endl;
+					std::cout << "-----------------------" << std::endl;
+					std::cout << "DIGITE S/N: ";
+					std::cin >> lv_answer;
+					std::cout << "------------" << std::endl;
+					
+					if (lv_answer == "S" || lv_answer == "s") {
+						
+						std::cout << "--------------------" << std::endl;
+						std::cout << "CARREGANDO NOVAMENTE" << std::endl;
+						std::cout << "--------------------" << std::endl;
+						
+						break;
+						
+					} else if (lv_answer == "N" || lv_answer == "n") {
+					
+						std::cout << "-----------" << std::endl;
+						std::cout << "FIM DE JOGO" << std::endl;
+						std::cout << "-----------" << std::endl;
+						
+						break;
+						
+					} else {
+					
+					std::cout << "---------------------------------------------" << std::endl;
+	        		std::cout << "ENTRADA INVALIDA. INSIRA UMA RESPOSTA." << std::endl;
+	        		std::cout << "------------------------------------------" << std::endl;
+	        		
+	        		}
+	        		
+	        	}
+					
+		if  (lf_range_random == lv_moveplayer) {
+					
+					std::cout << "-----------" << std::endl;	
+	    			std::cout << "ACERTOU!!!, PARABENS!!! " << std::endl;
+	    			std::cout << "VOCÊ ACABA DE GANHAR O PRODUTO!" << std::endl;
+	    			std::cout << "-------------------------------" << std::endl;
+	    			
+	    			std::cout << "------------------------" << std::endl;
+					std::cout << "QUER CONTINUAR JOGANDO?" << std::endl;
+					std::cout << "-----------------------" << std::endl;
+					std::cout << "DIGITE S/N: ";
+					std::cin >> lv_answer;
+					std::cout << "------------" << std::endl;
+					
+					if (lv_answer == "S" || lv_answer == "s") {
+							
+						std::cout << "--------------------" << std::endl;
+						std::cout << "CARREGANDO NOVAMENTE" << std::endl;
+						std::cout << "--------------------" << std::endl;
+						
+						break;
+						
+					} else if (lv_answer == "N" || lv_answer == "s") {
+					
+						std::cout << "-----------" << std::endl;
+						std::cout << "FIM DE JOGO" << std::endl;
+						std::cout << "-----------" << std::endl;
+						
+						break;
+						
+					} else {
+					
+					std::cout << "---------------------------------------------" << std::endl;
+	        		std::cout << "ENTRADA INVALIDA. INSIRA UMA RESPOSTA." << std::endl;
+	        		std::cout << "------------------------------------------" << std::endl;
+		        		
+		        	}				
+		
+				}
+								
+			}
+			
+		}
+    
+    return 0;
+}
